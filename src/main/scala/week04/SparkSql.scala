@@ -1,6 +1,8 @@
 import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
+//todo: move to test suite
+//todo: add parquet file reading
 object SparkSql {
 
   val conf: SparkConf = new SparkConf().setAppName("week_04").setMaster("local[*]")
@@ -34,12 +36,14 @@ object SparkSql {
     dataFrame.where("name = 'vas'").foreach(p => println(p))
   }
 
-  def readDataFremeFromCsv = {
-    session.read.csv(this.getClass.getResource("test.csv").toURI.getPath)
+  def readDataFrameFromCsv = {
+    val dataFrame = session.read.csv(this.getClass.getResource("test.csv").toURI.getPath)
+    dataFrame.where("_c1 = 'vas'").foreach(p => println(p))
   }
 
   def readDataFremeFromJson = {
-    session.read.json(this.getClass.getResource("test.json").toURI.getPath)
+    val dataFrame = session.read.json(this.getClass.getResource("test.json").toURI.getPath)
+    dataFrame.where("name = 'vas'").foreach(p => println(p))
   }
 
   case class Person(id: Int, name: String)
@@ -48,6 +52,8 @@ object SparkSql {
     getDataFrameFromTupleRdd
     getDataFrameFromTupleRddWithStructure
     getDataFrameFromTupleRddWithCaseClass
+    readDataFrameFromCsv
+    readDataFremeFromJson
   }
 
 }
