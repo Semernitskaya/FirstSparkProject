@@ -3,7 +3,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 //todo: move to test suite
 //todo: add parquet file reading
-object SparkSql {
+object SparkSqlInit {
 
   val conf: SparkConf = new SparkConf().setAppName("week_04").setMaster("local[*]")
 
